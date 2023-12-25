@@ -1,6 +1,16 @@
 const fs = require("fs");
 const cheerio = require("cheerio");
 const ExcelJS = require("exceljs");
+const { Translate } = require("@google-cloud/translate");
+
+const sourceLanguage = "tr"; // Set your source language
+const targetLanguage = "en"; // Set your target language
+
+// Specify your API key here
+const apiKey = "AIzaSyCdyywEoggkGaOop8CNcRkCWhDkzXxgwsc";
+
+// Instantiate the translation client with API key
+const googleTranslate = new Translate({ key: apiKey });
 
 // İŞLEM YAPILAN SAYFA ADI
 const pageName = "Checkout 3DS Ödemeleri";
@@ -128,7 +138,63 @@ workbook.xlsx
   .writeFile("adminMultiLang.xlsx")
   .then(() => {
     console.log("Dosya oluşturuldu");
+    translateKeysAndRewriteFile("adminMultiLang.xlsx");
   })
   .catch((err) => {
     console.error("Error:", err);
   });
+
+async function translateKeysAndRewriteFile(filePath) {
+  const workbook = new ExcelJS.Workbook();
+
+  try {
+    // Load the existing workbook
+    await workbook.xlsx.readFile(filePath);
+
+    // Access the worksheet
+    const worksheet = workbook.getWorksheet("LocalizationData");
+
+    const keysToBeTranslated = [];
+
+    worksheet.getColumn("A").eachCell((cell, rowNumber) => {
+      keysToBeTranslated.push(cell.value);
+    });
+
+    keysToBeTranslated.shift();
+
+    console.log(keysToBeTranslated);
+
+    const translatedKeys = [];
+
+    for (let i = 0; i < keysToBeTranslated.length; i++) {
+      let val = googleTranslate
+        .translate(keysToBeTranslated[i], {
+          from: sourceLanguage,
+          to: targetLanguage,
+        })
+        .then((results) => {
+          const translation = results[0];
+          console.log("SUCCESS", translation);
+          translatedKeys.push(val);
+        })
+        .catch((err) => {
+          console.error("ERROR:", err);
+        });
+    }
+    console.log("NEW VALUES", translatedKeys);
+
+    worksheet.getColumn("A").eachCell((cell, index) => {
+      if (index > 1) {
+        // Skip the header row
+        cell.value = translatedKeys[index - 2]; // Adjust index for zero-based array
+      }
+    });
+
+    // Save the changes to the Excel file
+    workbook.xlsx.writeFile("transformed.xlsx");
+
+    console.log("File updated successfully with translated values.");
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}

@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/translate": "^2.1.4",
+    "@vitalets/google-translate-api": "^9.2.0",
     "cheerio": "^1.0.0-rc.12",
     "exceljs": "^4.4.0",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "http-proxy-agent": "^7.0.0",
+    "libretranslate": "^1.0.1",
+    "translate": "^2.0.2"
   }
 }
