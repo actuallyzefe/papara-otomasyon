@@ -24,7 +24,7 @@ const languages = ["tr", "en", "es"];
 
 worksheet.columns = [
   { header: "Key", key: "key", width: 50 },
-  { header: "Language", key: "language", width: 15 },
+  { header: "Language", key: "lang", width: 15 },
   { header: "Target", key: "target", width: 15 },
   { header: "Value", key: "value", width: 50 },
 ];
