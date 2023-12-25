@@ -18,6 +18,12 @@
 
 4 - .env dosyası oluşturup google cloud keyinizi girmelisiniz
 
-5 - konsola node script.js ve çalışacak
+5 - Çalıştığınız cshtml dosyasını bu kodun bulundugu editorde yeni dosya olarak ekleyin.
 
-Oluşan "transformed.xlsx" dosyasını masaüstüne taşıyıp çevirileri kontrol edip panele yükleyebilirsiniz.
+6 - Dosya adının papara.cshtml olduğundan emin olun.
+
+7 - 16. satırda bulunan pageName değişkeninin değerini, cshtml dosyanızda bulunan title ile değiştirin (ViewBag.Title = "Checkout 3DS Ödemeleri";)
+
+8 - konsola node script.js ve çalışacak
+
+9 - Oluşan "transformed.xlsx" dosyasını masaüstüne taşıyıp çevirileri kontrol edip panele yükleyebilirsiniz.
