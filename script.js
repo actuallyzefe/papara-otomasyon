@@ -13,10 +13,10 @@ const worksheet = workbook.addWorksheet("LocalizationData");
 const languages = ["tr", "en", "es"];
 
 worksheet.columns = [
-  { header: "Key", key: "key", width: 15 },
+  { header: "Key", key: "key", width: 50 },
   { header: "Lang", key: "lang", width: 15 },
   { header: "Target", key: "target", width: 15 },
-  { header: "Value", key: "value", width: 15 },
+  { header: "Value", key: "value", width: 50 },
 ];
 
 // cshtml dosyasını okuyorum
@@ -39,7 +39,7 @@ const headerKey = keyGenerator(pageName, "title");
 
 const headerValue = loadFile("h3").text();
 
-const addRows = (keys, values) => {
+const addKeys = (keys, values) => {
   languages.forEach((lang) => {
     keys.forEach((key, index) => {
       const value = Array.isArray(values) ? values[index] : values;
@@ -49,7 +49,7 @@ const addRows = (keys, values) => {
 };
 
 // header key
-addRows([headerKey], headerValue);
+addKeys([headerKey], headerValue);
 
 // table
 const table = loadFile("table").first();
@@ -87,7 +87,7 @@ const rowKeys = () => {
     };
   });
 
-  addRows(
+  addKeys(
     keys.map((key) => key.originalKey),
     filteredTableValues
   );
@@ -95,6 +95,33 @@ const rowKeys = () => {
 
 // Table Key
 rowKeys();
+
+// Form Labelları alıyorum
+function formLabelKeyGenerator(pageName, label) {
+  const lowercased = pageName.toLowerCase().replace(/\s+/g, "_");
+  const withoutCommonPart = label.toLowerCase().replace(/\s+/g, "_");
+
+  if (!withoutCommonPart.trim()) {
+    return null;
+  }
+
+  return `${lowercased}_form_${withoutCommonPart}_label`;
+}
+
+const labels = [];
+loadFile("label").each((index, labelElement) => {
+  const labelText = loadFile(labelElement).text().trim();
+
+  if (labelText.trim() !== "") {
+    labels.push(labelText);
+
+    const labelKey = formLabelKeyGenerator(pageName, labelText);
+
+    if (labelKey !== null) {
+      addKeys([labelKey], labelText);
+    }
+  }
+});
 
 // Excel dosyasını oluşturuyorum
 workbook.xlsx
