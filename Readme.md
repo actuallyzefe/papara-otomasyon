@@ -27,3 +27,5 @@
 8 - konsola node script.js ve çalışacak
 
 9 - Oluşan "transformed.xlsx" dosyasını masaüstüne taşıyıp çevirileri kontrol edip panele yükleyebilirsiniz.
+
+10 - Oluşan keyleri visual studioda bulunan cshtml sayfamıza eklemeyi unutmayalım :)
