@@ -29,3 +29,5 @@
 9 - Oluşan "transformed.xlsx" dosyasını masaüstüne taşıyıp çevirileri kontrol edip panele yükleyebilirsiniz.
 
 10 - Oluşan keyleri visual studioda bulunan cshtml sayfamıza eklemeyi unutmayalım :)
+
+!!! API KAYNAKLI ÇEVİRİLERDE SIKINTI YAŞANABİLİR! oluşturulan adminMultiLang.xlsx dosyasını alıp excelde toplu degıstırme yaparak devam edebılırsınız 3 tıkta hazır
