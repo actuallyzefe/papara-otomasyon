@@ -2,14 +2,14 @@ const fs = require("fs");
 const cheerio = require("cheerio");
 const ExcelJS = require("exceljs");
 const { Translate } = require("@google-cloud/translate");
+const dotenv = require("dotenv");
+dotenv.config();
 
-const sourceLanguage = "tr"; // Set your source language
-const targetLanguage = "en"; // Set your target language
+const sourceLanguage = "tr";
+const targetLanguage = "en";
 
-// Specify your API key here
-const apiKey = "AIzaSyCdyywEoggkGaOop8CNcRkCWhDkzXxgwsc";
-
-// Instantiate the translation client with API key
+// GOOGLE API AYARLARI
+const apiKey = process.env.GOOGLE_API_KEY;
 const googleTranslate = new Translate({ key: apiKey });
 
 // İŞLEM YAPILAN SAYFA ADI
@@ -24,7 +24,7 @@ const languages = ["tr", "en", "es"];
 
 worksheet.columns = [
   { header: "Key", key: "key", width: 50 },
-  { header: "Lang", key: "lang", width: 15 },
+  { header: "Language", key: "language", width: 15 },
   { header: "Target", key: "target", width: 15 },
   { header: "Value", key: "value", width: 50 },
 ];
@@ -148,50 +148,46 @@ async function translateKeysAndRewriteFile(filePath) {
   const workbook = new ExcelJS.Workbook();
 
   try {
-    // Load the existing workbook
+    // Dosyaya erişiyorum
     await workbook.xlsx.readFile(filePath);
 
-    // Access the worksheet
+    // Ardından Worksheete erişiyorum
     const worksheet = workbook.getWorksheet("LocalizationData");
 
-    const keysToBeTranslated = [];
-
-    worksheet.getColumn("A").eachCell((cell, rowNumber) => {
-      keysToBeTranslated.push(cell.value);
-    });
-
-    keysToBeTranslated.shift();
+    const keysToBeTranslated = worksheet.getColumn("A").values.slice(1);
 
     console.log(keysToBeTranslated);
 
-    const translatedKeys = [];
-
-    for (let i = 0; i < keysToBeTranslated.length; i++) {
-      let val = googleTranslate
-        .translate(keysToBeTranslated[i], {
+    const translationPromises = keysToBeTranslated.map((key) => {
+      return googleTranslate
+        .translate(key, {
           from: sourceLanguage,
           to: targetLanguage,
+          model: "nmt",
         })
         .then((results) => {
           const translation = results[0];
           console.log("SUCCESS", translation);
-          translatedKeys.push(val);
+          return translation;
         })
         .catch((err) => {
           console.error("ERROR:", err);
+          return key;
         });
-    }
+    });
+
+    const translatedKeys = await Promise.all(translationPromises);
+
     console.log("NEW VALUES", translatedKeys);
 
     worksheet.getColumn("A").eachCell((cell, index) => {
-      if (index > 1) {
-        // Skip the header row
-        cell.value = translatedKeys[index - 2]; // Adjust index for zero-based array
+      if (index > 0) {
+        cell.value = translatedKeys[index - 1];
       }
     });
 
-    // Save the changes to the Excel file
-    workbook.xlsx.writeFile("transformed.xlsx");
+    // Yeni dosyayı yaratıyorum
+    await workbook.xlsx.writeFile("transformed.xlsx");
 
     console.log("File updated successfully with translated values.");
   } catch (err) {
