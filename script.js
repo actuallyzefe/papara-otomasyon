@@ -13,7 +13,7 @@ const apiKey = process.env.GOOGLE_API_KEY;
 const googleTranslate = new Translate({ key: apiKey });
 
 // İŞLEM YAPILAN SAYFA ADI
-const pageName = "Checkout 3DS Ödemeleri";
+const pageName = "settlements_unmatched_settlements_page";
 
 // Excel Dosyasını hazırlma işlemi
 const workbook = new ExcelJS.Workbook();
