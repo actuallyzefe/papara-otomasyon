@@ -24,7 +24,7 @@
 
 7 - 16. satırda bulunan pageName değişkeninin değerini, cshtml dosyanızda bulunan title ile değiştirin (ViewBag.Title = "Checkout 3DS Ödemeleri";)
 
-8 - konsola node script.js ve çalışacak
+8 - konsola node script.js ve çalışacak | cshtml dosyasını modify etmek için node edit.js komutunu kullanabilirsiniz.
 
 9 - Oluşan "transformed.xlsx" dosyasını masaüstüne taşıyıp çevirileri kontrol edip panele yükleyebilirsiniz.
 
