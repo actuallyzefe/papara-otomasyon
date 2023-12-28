@@ -30,7 +30,7 @@ Bu araç, aşağıdaki işlemler için kullanılabilir:
 
    - Çalıştığınız CSHTML dosyasını projedeki editörde yeni dosya olarak ekleyin.
    - Dosya adını "papara.cshtml" olarak kaydedin.
-   - 16. satırda bulunan `pageName` değişkenine, CSHTML dosyanızdaki başlıkla uyumlu bir değer verin (örneğin: `ViewBag.Title = "Checkout 3DS Ödemeleri";`).
+   -  16. satırda bulunan `pageName` değişkenine, CSHTML dosyanızdaki başlıkla uyumlu bir değer verin (örneğin: `ViewBag.Title = "Checkout 3DS Ödemeleri";`).
 
 5. **Placeholder Keyleri Oluşturma:**
 
