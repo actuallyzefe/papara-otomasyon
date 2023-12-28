@@ -1,43 +1,55 @@
 # MultiLang Excel Generator
 
-## Neler için kullanılabilir?
+Bu araç, çoklu dil destekli web sayfalarının çeviri anahtarlarını otomatik oluşturan ve yönetmenize yardımcı olan bir Node.js tabanlı araçtır.
 
-👉 Sayfa içerisinde bulunan title(bazı sayflarda değerler h3 h4 değişmekte lutfen script.js dosyasını şimdilik papara.cshtml e gore edıtleyın) ın keyini oluşturmak için
+## Kullanım Alanları
 
-👉 Sayfa içerisinde bulunan form labellarının keyini oluşturmak için
+Bu araç, aşağıdaki işlemler için kullanılabilir:
 
-👉 Sayfa içerisinde bulunan table columnlarının keyini oluşturmak için
+- Web sayfasında bulunan başlıkların çeviri anahtarlarını oluşturmak.
+- Web sayfasında bulunan form etiketlerinin çeviri anahtarlarını oluşturmak.
+- Web sayfasında bulunan tablo sütunlarının çeviri anahtarlarını oluşturmak.
 
 ## Kullanım
 
-1 - NodeJS yüklü değilse öncesinde kurmanız gerekiyor.
+1. **Node.js Kurulumu:**
 
-2 - konsola npm init -y
+   - Node.js yüklü değilse [Node.js'i indirip yükleyin](https://nodejs.org/).
 
-3 - npm install
+2. **Proje Başlatma:**
 
-4 - .env dosyası oluşturup google cloud keyinizi girmelisiniz
+   - Konsol üzerinden proje dizininde `npm init -y` komutunu çalıştırın.
+   - Ardından, gerekli paketleri yüklemek için `npm install` komutunu kullanın.
 
-5 - Çalıştığınız cshtml dosyasını bu kodun bulundugu editorde yeni dosya olarak ekleyin.
+3. **.env Dosyası Oluşturma:**
 
-6 - Dosya adının papara.cshtml olduğundan emin olun.
+   - Proje dizinine `.env` adında bir dosya oluşturun.
+   - Oluşturulan dosyaya Google Cloud API anahtarınızı ekleyin.
 
-7 - 16. satırda bulunan pageName değişkeninin değerini, cshtml dosyanızda bulunan title ile değiştirin (ViewBag.Title = "Checkout 3DS Ödemeleri";)
+4. **CSHTML Dosyası Ayarları:**
 
-7a => Title'ı manuel olarak pageName değişkenine snake_case ve ingilizce olarak girmeniz daha verimli sonuç sağlayacaktır.
+   - Çalıştığınız CSHTML dosyasını projedeki editörde yeni dosya olarak ekleyin.
+   - Dosya adını "papara.cshtml" olarak kaydedin.
+   - 16. satırda bulunan `pageName` değişkenine, CSHTML dosyanızdaki başlıkla uyumlu bir değer verin (örneğin: `ViewBag.Title = "Checkout 3DS Ödemeleri";`).
 
-8 - Placeholder Keylerini oluşturmak için script.js dosyasında 113.satırda bulunan loadFile("") içerisine papara.cshtml dosyanızda @Html.TextBoxFor hangi divin içerisindeyse o divin classını koymalısınız. | cshtml dosyasında placeholderları modify etmek için ise edit.js dosyasında 88. satırda bulunan loadFile("") fonksiyonuna da aynı işlemi uygulamalısınız
+5. **Placeholder Keyleri Oluşturma:**
 
-9 - konsola node script.js yazdığımızda excele key oluşturma işlemi çalışacak
+   - `script.js` dosyasında 113. satırda bulunan `loadFile("")` fonksiyonuna, CSHTML dosyanızdaki `@Html.TextBoxFor` olan div'in class'ını ekleyin.
+   - Aynı işlemi, çeviri anahtarlarını düzenlemek için `edit.js` dosyasında 88. satırda bulunan `loadFile("")` fonksiyonu için de yapın.
 
-9a - cshtml dosyasını modify etmek için node edit.js komutunu kullanabilirsiniz.
+6. **Çalıştırma:**
 
-10 - Oluşan "transformed.xlsx" dosyasını masaüstüne taşıyıp çevirileri kontrol edip panele yükleyebilirsiniz.
+   - Konsola `node script.js` komutunu yazarak çeviri anahtarlarını oluşturun.
+   - CSHTML dosyanızı düzenlemek için `node edit.js` komutunu kullanabilirsiniz.
+
+7. **Çeviri Kontrolü:**
+   - Oluşan "transformed.xlsx" dosyasını masaüstüne taşıyın.
+   - Çevirileri kontrol edip, panele yükleyebilirsiniz.
 
 ## Bilgilendirme
 
-!! modified_papara.cshtml dosyanızda form-label | form-placeholder | table sütularında data-i18n dönüşümü yapılmış olmalı.
+- `modified_papara.cshtml` dosyanızda, form etiketleri, form yer tutucuları ve tablo sütunlarındaki `data-i18n` dönüşümü yapılmış olmalıdır.
+- Script hala geliştirme aşamasında olduğundan oluşturulan çeviri anahtarlarını ve CSHTML dosyanızı kontrol edin.
+- API kaynaklı çevirilerde sorun yaşanabilir. Oluşturulan `adminMultiLang.xlsx` dosyasını alıp Excel'de toplu değiştirme yaparak devam edebilirsiniz.
 
-!! Script hala geliştirme aşamasında olduğundan oluşturulan keyleri ve cshtml dosyanızı lütfen kontrol edin.
-
-!!! API KAYNAKLI ÇEVİRİLERDE SIKINTI YAŞANABİLİR! oluşturulan adminMultiLang.xlsx dosyasını alıp excelde toplu degıstırme yaparak devam edebılırsınız 3 tıkta hazır
+- CSHTML dosyanızda bulunan title etiketinizin h değerini lütfen kontrol edin ve script.js dosyasında 50.satırda bulunan loadFile("") içerisine o değeri koyun.
