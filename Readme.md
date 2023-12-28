@@ -54,3 +54,5 @@ Bu araç, aşağıdaki işlemler için kullanılabilir:
 - API kaynaklı çevirilerde sorun yaşanabilir. Oluşturulan `adminMultiLang.xlsx` dosyasını alıp Excel'de toplu değiştirme yaparak devam edebilirsiniz.
 
 - CSHTML dosyanızda bulunan title etiketinizin h değerini lütfen kontrol edin ve script.js dosyasında 50.satırda bulunan loadFile("") içerisine o değeri koyun.
+
+- Table sütunlarında `en BAŞTAKİ değer` ve `en SONDAKİ değer yer değiştirmeli` bu bug güncellenecektir.

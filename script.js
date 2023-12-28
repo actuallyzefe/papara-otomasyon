@@ -110,7 +110,7 @@ rowKeys();
 
 // Placeholderları alıyorum
 const placeholders = [];
-const targetDivs = loadFile(".col-lg-2");
+const targetDivs = loadFile(".col-lg-4");
 targetDivs.each((index, element) => {
   // @html içerisinde bulunan texte erişiyorum
   const htmlValue = loadFile(element).text();

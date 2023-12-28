@@ -85,7 +85,7 @@ workbook.xlsx
     });
 
     // Placeholder değerlerini değiştiriyorum
-    const targetDivs = loadFile(".col-lg-6");
+    const targetDivs = loadFile(".col-lg-4");
     targetDivs.each((index, element) => {
       const divContent = loadFile(element).html();
 
