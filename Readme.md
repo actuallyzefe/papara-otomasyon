@@ -48,6 +48,7 @@ Bu araç, aşağıdaki işlemler için kullanılabilir:
 
 ## Bilgilendirme
 
+- Lütfen modified_papara.cshtml dosyasını komple kopyalayıp orijinal file için kullanmayın. Onun yerine data-i18n formatında dönüştürülen keylerin bulunduğu yerleri alın :)
 - `modified_papara.cshtml` dosyanızda, form etiketleri, form yer tutucuları ve tablo sütunlarındaki `data-i18n` dönüşümü yapılmış olmalıdır.
 - Script hala geliştirme aşamasında olduğundan oluşturulan çeviri anahtarlarını ve CSHTML dosyanızı kontrol edin.
 - API kaynaklı çevirilerde sorun yaşanabilir. Oluşturulan `adminMultiLang.xlsx` dosyasını alıp Excel'de toplu değiştirme yaparak devam edebilirsiniz.
