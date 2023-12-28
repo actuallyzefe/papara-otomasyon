@@ -125,7 +125,7 @@ targetDivs.each((index, element) => {
     ? placeholderValues.map((match) => match.match(/["']([^"']+)["']/)[1])
     : [];
 
-  // Filter out empty placeholders
+  // Boş placeholderları filter ile ayırt edyorum
   const validPlaceholders = extractedPlaceholders.filter(
     (placeholder) => placeholder.trim() !== ""
   );
