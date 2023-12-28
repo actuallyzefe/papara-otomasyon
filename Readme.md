@@ -2,7 +2,7 @@
 
 ## Neler için kullanılabilir?
 
-👉 Sayfa içerisinde bulunan title(h3) ın keyini oluşturmak için
+👉 Sayfa içerisinde bulunan title(bazı sayflarda değerler h3 h4 değişmekte lutfen script.js dosyasını şimdilik papara.cshtml e gore edıtleyın) ın keyini oluşturmak için
 
 👉 Sayfa içerisinde bulunan form labellarının keyini oluşturmak için
 
