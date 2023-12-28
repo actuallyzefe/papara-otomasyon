@@ -9,6 +9,7 @@ Bu araç, aşağıdaki işlemler için kullanılabilir:
 - Web sayfasında bulunan başlıkların çeviri anahtarlarını oluşturmak.
 - Web sayfasında bulunan form etiketlerinin çeviri anahtarlarını oluşturmak.
 - Web sayfasında bulunan tablo sütunlarının çeviri anahtarlarını oluşturmak.
+-  Web sayfasında bulunan placeholderların çeviri anahtarlarını oluşturmak.
 
 ## Kullanım
 
