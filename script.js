@@ -130,10 +130,10 @@ targetDivs.each((index, element) => {
     (placeholder) => placeholder.trim() !== ""
   );
 
-  // Add valid placeholders to the main array
+  // Placeholder değerlerini ekliyorum
   placeholders.push(...validPlaceholders);
 
-  // Generate keys for the array of placeholders and add to the workbook
+  // Placeholder keylerini oluşturuyorum
   const placeholderKeys = formPlaceholderKeyGenerator(
     pageName,
     validPlaceholders
