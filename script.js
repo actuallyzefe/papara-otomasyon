@@ -13,7 +13,7 @@ const apiKey = process.env.GOOGLE_API_KEY;
 const googleTranslate = new Translate({ key: apiKey });
 
 // İŞLEM YAPILAN SAYFA ADI
-const pageName = "settlements_unmatched_settlements_page";
+const pageName = "metalcard_travel_reward_cashback_details";
 
 // Excel Dosyasını hazırlma işlemi
 const workbook = new ExcelJS.Workbook();
@@ -47,7 +47,7 @@ function keyGenerator(pageName, section) {
 
 const headerKey = keyGenerator(pageName, "title");
 
-const headerValue = loadFile("h3").text();
+const headerValue = loadFile("h4").text();
 
 const addKeys = (keys, values) => {
   languages.forEach((lang) => {
@@ -105,6 +105,60 @@ const rowKeys = () => {
 
 // Table Key
 rowKeys();
+
+// console.log(loadFile("input")[0].attribs.placeholder, ""); // !!!!!
+
+// Placeholderları alıyorum
+const placeholders = [];
+const targetDivs = loadFile(".col-lg-2");
+targetDivs.each((index, element) => {
+  // @html içerisinde bulunan texte erişiyorum
+  const htmlValue = loadFile(element).text();
+
+  // Eriştiğim değerden placeholderları ayrıcak bir regex kullandım
+  const placeholderValues = htmlValue.match(
+    /placeholder\s*=\s*["']([^"']+)["']/g
+  );
+
+  // Placeholder valuelarını çekmek için regex ile mapledim
+  const extractedPlaceholders = placeholderValues
+    ? placeholderValues.map((match) => match.match(/["']([^"']+)["']/)[1])
+    : [];
+
+  // Filter out empty placeholders
+  const validPlaceholders = extractedPlaceholders.filter(
+    (placeholder) => placeholder.trim() !== ""
+  );
+
+  // Add valid placeholders to the main array
+  placeholders.push(...validPlaceholders);
+
+  // Generate keys for the array of placeholders and add to the workbook
+  const placeholderKeys = formPlaceholderKeyGenerator(
+    pageName,
+    validPlaceholders
+  );
+  placeholderKeys.forEach((key, placeholderIndex) => {
+    if (key !== null) {
+      addKeys([key], validPlaceholders[placeholderIndex]);
+    }
+  });
+  console.log(placeholders);
+});
+
+function formPlaceholderKeyGenerator(pageName, placeholders) {
+  const lowercased = pageName.toLowerCase().replace(/\s+/g, "_");
+
+  return placeholders.map((placeholder, index) => {
+    const withoutCommonPart = placeholder.toLowerCase().replace(/\s+/g, "_");
+
+    if (!withoutCommonPart.trim()) {
+      return null;
+    }
+
+    return `${lowercased}_form_${withoutCommonPart}_placeholder`;
+  });
+}
 
 // Form Labelları alıyorum
 function formLabelKeyGenerator(pageName, label) {
@@ -193,8 +247,4 @@ async function translateKeysAndRewriteFile(filePath) {
   } catch (err) {
     console.error("Error:", err);
   }
-}
-
-function onlyUnique(value, index, array) {
-  return array.indexOf(value) === index;
 }

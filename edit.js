@@ -5,11 +5,11 @@ const ExcelJS = require("exceljs");
 const workbook = new ExcelJS.Workbook();
 const worksheetName = "LocalizationData";
 
-// Load the Excel file
+// Load  Excel file
 workbook.xlsx
   .readFile("transformed.xlsx")
   .then(() => {
-    // Get the worksheet
+    // Get  worksheet
     const worksheet = workbook.getWorksheet(worksheetName);
 
     if (!worksheet) {
@@ -76,11 +76,38 @@ workbook.xlsx
         labelElement.attr("data-i18n", `[html]${labelValueFromExcel}`);
 
         // Girilen attribute (key) değerinin doğrulunu yorumda bulunan değer ile eşleştiğinden emin olunuz
+        // Orijinal sayfa ile kıyaslayınız
         labelElement.html(`<!-- ${labelValue} -->`);
       } else {
         // Value bulunmazsa throw
         console.warn(`Label value "${labelValue}" not found in Excel.`);
       }
+    });
+
+    // Placeholder değerlerini değiştiriyorum
+    const targetDivs = loadFile(".col-lg-6");
+    targetDivs.each((index, element) => {
+      const divContent = loadFile(element).html();
+
+      // Placeholder değerlerini bulup değiştirmek için regex kullanıyorum
+      const updatedContent = divContent.replace(
+        /@Html.TextBoxFor\s*\(.*?placeholder\s*=\s*["']([^"']+)["'].*?\)/g,
+        (match, placeholderValue) => {
+          const correspondingDColumnValue =
+            columnDToAColumnMap[placeholderValue];
+          if (correspondingDColumnValue !== undefined) {
+            return `@Html.TextBoxFor(model => model.GsmNo, null, new { @class = "form-control", placeholder = "", data_i18n="[placeholder]${correspondingDColumnValue}" })`;
+          } else {
+            console.warn(
+              `Placeholder value "${placeholderValue}" not found in Excel.`
+            );
+            return match; // Value bulunamazsa no change
+          }
+        }
+      );
+
+      // Update
+      loadFile(element).html(updatedContent);
     });
 
     // Save file

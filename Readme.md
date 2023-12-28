@@ -24,10 +24,20 @@
 
 7 - 16. satırda bulunan pageName değişkeninin değerini, cshtml dosyanızda bulunan title ile değiştirin (ViewBag.Title = "Checkout 3DS Ödemeleri";)
 
-8 - konsola node script.js ve çalışacak | cshtml dosyasını modify etmek için node edit.js komutunu kullanabilirsiniz.
+7a => Title'ı manuel olarak pageName değişkenine snake_case ve ingilizce olarak girmeniz daha verimli sonuç sağlayacaktır.
 
-9 - Oluşan "transformed.xlsx" dosyasını masaüstüne taşıyıp çevirileri kontrol edip panele yükleyebilirsiniz.
+8 - Placeholder Keylerini oluşturmak için script.js dosyasında 113.satırda bulunan loadFile("") içerisine papara.cshtml dosyanızda @Html.TextBoxFor hangi divin içerisindeyse o divin classını koymalısınız. | cshtml dosyasında placeholderları modify etmek için ise edit.js dosyasında 88. satırda bulunan loadFile("") fonksiyonuna da aynı işlemi uygulamalısınız
 
-10 - Oluşan keyleri visual studioda bulunan cshtml sayfamıza eklemeyi unutmayalım :)
+9 - konsola node script.js yazdığımızda excele key oluşturma işlemi çalışacak
+
+9a - cshtml dosyasını modify etmek için node edit.js komutunu kullanabilirsiniz.
+
+10 - Oluşan "transformed.xlsx" dosyasını masaüstüne taşıyıp çevirileri kontrol edip panele yükleyebilirsiniz.
+
+## Bilgilendirme
+
+!! modified_papara.cshtml dosyanızda form-label | form-placeholder | table sütularında data-i18n dönüşümü yapılmış olmalı.
+
+!! Script hala geliştirme aşamasında olduğundan oluşturulan keyleri ve cshtml dosyanızı lütfen kontrol edin.
 
 !!! API KAYNAKLI ÇEVİRİLERDE SIKINTI YAŞANABİLİR! oluşturulan adminMultiLang.xlsx dosyasını alıp excelde toplu degıstırme yaparak devam edebılırsınız 3 tıkta hazır
