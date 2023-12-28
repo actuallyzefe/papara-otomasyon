@@ -194,3 +194,7 @@ async function translateKeysAndRewriteFile(filePath) {
     console.error("Error:", err);
   }
 }
+
+function onlyUnique(value, index, array) {
+  return array.indexOf(value) === index;
+}
