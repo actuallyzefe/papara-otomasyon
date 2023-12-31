@@ -48,6 +48,7 @@ workbook.xlsx
     });
 
     // Table editliyorum
+    const val = [];
     table.find("th").each((index, th) => {
       const thValue = loadFile(th).html().trim();
 
@@ -59,10 +60,24 @@ workbook.xlsx
         const keyIndex = tableValues.indexOf(thValue);
 
         // Key değerini data-i18n attribute u ile ekliyorum
-        loadFile(th).html(
+        const newValues = loadFile(th).html(
           `<span data-i18n="[html]${correspondingDColumnValue}"></span> <!-- ${keyIndex} -->`
         );
+
+        const switchedValues = newValues.toString().split("\n").values();
+
+        for (values of switchedValues) {
+          val.push(values);
+        }
       }
+    });
+    const lastIndex = val.pop();
+    val.unshift(lastIndex);
+
+    table.find("th").each((index, th) => {
+      loadFile(th).html().trim();
+
+      loadFile(th).html(val[index]);
     });
 
     // Label Değerlerini değiştiriyorum
